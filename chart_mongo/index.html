@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.js"></script>
+  <script src='https://code.jquery.com/jquery-3.1.1.min.js'></script>
+  <script src="chart.js"></script>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10">
+        <canvas id="myChart"></canvas>
+      </div>
+    </div>
+  </div>
+  <script>
+    var Currents = [{{ Currents}}]; //get chart.js Currents var
+    var Temperature = [{{Temperature}}];  
+    var Humidity = [{{Humidity}}];
+    var Labelnum = [{{num}}];
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: Labelnum,
+        datasets: [{
+          label: 'Currents',
+          data: Currents,
+          fill: false,
+          backgroundColor: "rgba(206, 100, 100, 1)",
+          pointBackgroundColor: '#fff',
+          borderColor: "rgba(206, 100, 100, 1)",
+          
+        },{
+          label: 'Temperature',
+          data: Temperature,
+          fill: false,
+          backgroundColor: "#648BD0",
+          pointBackgroundColor: '#fff',
+          borderColor: "#648BD0",
+        },
+        {
+          label: 'Humidity',
+          data: Humidity,
+           fill: false,
+           pointBackgroundColor: '#fff',
+          backgroundColor: "rgba(100,100,126,0.1)"
+        }]
+      }
+    });
+  </script>
+</head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Document</title>
