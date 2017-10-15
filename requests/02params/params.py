@@ -1,5 +1,5 @@
 import requests
-parmas = {"q":"doonabae"}
+parmas = {"q":"sense8"}
 
 r = requests.get("http://www.bing.com/search",params=parmas)
 print("status: ",r.status_code)
