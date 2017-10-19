@@ -190,5 +190,74 @@ def index(request):
 `
 hello world ! plusone!
 `
+### Dymanic template data
+在`views.py`內import `models.py`在view內新增剛剛建立的Post class
+
+```python
+from .models import Post # @models.py
+```
+新增 posts變數存放Post.object
+
+```python
+def index(request):
+    posts = Post.objects.all() 
+    return render(request,'index.html',{'posts':posts})
+```
+`index.html`
+
+```html
+<!DOCTYPE html>
+<body>
+    <h2>hello world ! plusone!</h2>
+    {% for post in posts %}
+        <div>
+            <h3><a href="/post/{{post.slug}}">{{post.title}}</a></h3>
+            <h4>{{post.summary}}</h4>
+            <p>{{post.content}}</p>
+        </div>
+    {% endfor %}
+</body>
+</html>
+```
+
+### Single post page
+
+`views.py` 新增 `render_to_response ` ,` get_object_or_404 `和 `print(slug)`
+```python
+from django.shortcuts import render,render_to_response, get_object_or_404
+from django.http import HttpResponse
+from .models import Post # @models.py
+def index(request):
+    posts = Post.objects.all() 
+    return render(request,'index.html',{'posts':posts})
+
+def post(request,slug):
+    print(slug)
+    return render_to_response('post.html',{
+        'post':get_object_or_404(Post,slug=slug) # Post class 
+        # will match the slug find the post return it to the template in 'post'
+})
+```
+`urls.py`新增`(.*)`在url(r'^post/',blog_views.post),內
+
+```python
+from django.conf.urls import url
+from django.contrib import admin
+from blog import views as blog_views
+urlpatterns = [
+    # define two routers (post,index)
+    url(r'^post/(.*)$',blog_views.post),
+    url(r'^$',blog_views.index),
+    url(r'^admin/', admin.site.urls),
+]
+```
+新增一個 `post.html`在templates目錄
+```html
+<a href="/"><-back to index</a><br><br>
+<h3>{{post.title}}</h3>
+<div>
+    {{post.content}}
+</div>
+```
 
 
