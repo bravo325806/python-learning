@@ -260,4 +260,150 @@ urlpatterns = [
 </div>
 ```
 
+### Inplementing bootstrap3
+
+安裝django-bootstrap3
+```
+pip install django-bootstrap3
+```
+在`settiings.py`新增bootstrap
+```python
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'blog',
+    'bootstrap3',
+]
+```
+
+`index.html`匯入bootstrap3
+```html
+{% load bootstrap3 %}
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+```
+接著就可以看到網頁字體改變了！
+
+
+### Static file
+
+在`settings.py`內我們可以看到下面有一行
+```python
+STATIC_URL = '/static/'
+```
+現在我們建立一個`static`目錄
+在`static`底下建立一個`css`目錄
+在`css`目錄底下建立一個`style.css`檔案
+
+style.css
+```css
+body{
+ background-color:#bababf !important;
+ #this is not going to be overidden    
+}
+```
+
+`index.html`新增程式碼
+```html
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+```
+就可以看到body顏色改變了！
+
+### Template inheritance 
+
+新增一個`base.html`在`template`目錄下
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    {% load bootstrap3 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    <title>{% block title %} Mysite {% endblock %}</title>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+                    aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">mysite</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="/">HOME<span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">Random Post</a></li>
+                    <li><a href="#">My Profile</a></li>
+                    <li><a href="#">Settings</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="content">
+    {% block content %}
+        This is fallback text
+    {% endblock %}
+    </div>
+</body>
+</html>
+```
+
+修改`index.html`檔案
+```html
+{% extends 'base.html'%}
+<body>
+    {% block content %}
+        <h2>hello world ! plusone!</h2>
+        {% for post in posts %}
+            <div>
+                <h3><a href="/post/{{post.slug}}">{{post.title}}</a></h3>
+                <h4>{{post.summary}}</h4>
+                <p>{{post.content}}</p>
+            </div>
+        {% endfor %}
+    {% endblock %}
+</body>
+</html>
+```
+修改`post.html`檔案
+```html
+{% extends 'base.html'%}
+    {% block content %}
+    {% block title %} Mysite: {{ post.title }}{% endblock %}
+    <a href="/"><-back to index</a><br><br>
+    <h3>{{post.title}}</h3>
+    <div>
+        {{post.content}}
+    </div>
+{% endblock %}
+```
+
+### Post Images
+
+`settings.py`下新增`
+```python
+STATIC_URL = '/static/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,'media/')
+```
+
+`models.py`下新增程式碼
+``python
+image = models.ImageFied(upload_to = 'img')
+```
+
+
 
