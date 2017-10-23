@@ -401,7 +401,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR,'media/')
 ```
 
 `models.py`下新增程式碼
-``python
+```python
 image = models.ImageFied(upload_to = 'img')
 ```
 
