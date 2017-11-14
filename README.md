@@ -5,7 +5,13 @@
 * [02. params](requests/02params/params.py)
 * [03. pillow](requests/03pillow/pillow.py)
 * [04. post_basic](requests/04post/postbasic/post.py)
-* [05. post_json](/requests/04post/postJson/postJson.py)
+* [05. post_json](requests/04post/postJson/postJson.py)
+* [06. bs4 basic](requests/05beautifullsoup/basic.py)
+
+### python webbrowser
+[01. mapkit](webmaplt/)
+
+[autoOpenGoogleSearch](requests/05beautifullsoup/opengoogleSearch/lucky.py)
 
 ### Python pymongo:
 * [01. insert](pymongo/_1inert.py)
