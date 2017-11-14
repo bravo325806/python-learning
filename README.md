@@ -8,9 +8,10 @@
 * [05. post_json](requests/04post/postJson/postJson.py)
 * [06. bs4 basic](requests/05beautifullsoup/basic.py)
 
-### python webbrowser
+### Python webbrowser
 [01. mapkit](webmaplt/)
 
+minProject
 [autoOpenGoogleSearch](requests/05beautifullsoup/opengoogleSearch/lucky.py)
 
 ### Python pymongo:
