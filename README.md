@@ -38,6 +38,13 @@ minProject
 * [04. confgraph](matplotlib/_4confgraph.py)
 * [05. charts](matplotlib/_5charts.py)
 
+## web
+
 ### Python Django:
 * [01. django](django/Django.md)
 
+### python Flask:
+* [01. render-templates](python-web-flask/01-render-templates/)
+* [02. extend-layout](python-web-flask/02-extend-layout/)
+* [03. request-get-post](python-web-flask/request-get-post/app.py)
+* [blog-framework](python-web-flask/blog-framework/)
