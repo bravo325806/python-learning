@@ -27,7 +27,7 @@ minProject
 * [04. confgraph](matplotlib/_4confgraph.py)
 * [05. charts](matplotlib/_5charts.py)
 
-### web
+## Web
 
 ### Python Requests:
 * [01. basic](requests/01basic/requeststest.py)
