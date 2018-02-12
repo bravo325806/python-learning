@@ -1,8 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
 
-searchWord = input("Search for:")
-
 def format_input_url(searchWord):
     url = 'http://www.learnersdictionary.com/definition/'
     url = url + searchWord.strip().lower().replace(' ', '%20')
@@ -41,13 +39,19 @@ def print_word_results(defNumber, defOfWord, partOfSpeech):
     for d in defOfWord:
         print(str(count)+":"+str(d))
         count += 1
-# format user enter word
-wordUrl = format_input_url(searchWord)
-# call api and html parser
-htmlParser = word_search_parser(wordUrl)
-# find the word's part of speech ,return tyep : array(list)
-partOfSpeech = find_part_of_speech(htmlParser)
-# find define of word and count number , return tyep : array(list)
-defNumber, defOfWord = find_def_text(htmlParser)
-# print results
-print_word_results(defNumber, defOfWord, partOfSpeech)
+
+def main():
+    searchWord = input("Search for:")
+    # format user enter word
+    wordUrl = format_input_url(searchWord)
+    # call api and html parser
+    htmlParser = word_search_parser(wordUrl)
+    # find the word's part of speech ,return tyep : array(list)
+    partOfSpeech = find_part_of_speech(htmlParser)
+    # find define of word and count number , return tyep : array(list)
+    defNumber, defOfWord = find_def_text(htmlParser)
+    # print results
+    print_word_results(defNumber, defOfWord, partOfSpeech)
+
+if __name__== "__main__":
+    main()
