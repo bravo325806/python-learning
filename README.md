@@ -1,4 +1,3 @@
-# Even if i love to be angry i am still a very cute koala,and everybody call me Taichung Kwai Lun-Mei or beautiful sun girl
 
 # Summary
 
