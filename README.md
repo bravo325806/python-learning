@@ -9,9 +9,9 @@
 * [01. pdf-reader](python-pypdf2/01-pdf-reader/pdf_read.py)
 
 ### Python Pillow:
-* [01. get-color](01-get-color/getcolor.py)
-* [02. image-Format](02-image-format/image_format/)
-* [03. crop-image](03-crop-img/crop_image.py) 
+* [01. get-color](python-pillow/01-get-color/getcolor.py)
+* [02. image-Format](python-pillow/02-image-format/image_format/)
+* [03. crop-image](python-pillow/03-crop-img/crop_image.py) 
 
 ### Python Mutithreading:
 * [01. mutithreading](python-mutithread/mutithreading.py)
