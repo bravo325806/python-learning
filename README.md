@@ -20,13 +20,6 @@ minProject
 * [03. datetime](pymongo/_3datetime.py)
 * [04. find](pymongo/_4find.py)
 
-### Python Matplotlib:
-* [01. start](matplotlib/_1start.py)
-* [02. label](matplotlib/_2label.py)
-* [03. multilines](matplotlib/_3multilines.py)
-* [04. confgraph](matplotlib/_4confgraph.py)
-* [05. charts](matplotlib/_5charts.py)
-
 ## Web
 
 ### Python Requests:
