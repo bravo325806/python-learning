@@ -9,8 +9,8 @@
 
 ### Python Pillow:
 * [01. get-color](python-pillow/01-get-color/getcolor.py)
-* [02. image-Format](python-pillow/02-image-format/image_format/)
-* [03. crop-image](python-pillow/03-crop-img/crop_image.py) 
+* [02. image-Format](python-pillow/02-image-format/image_format.py)
+* [03. crop-image](python-pillow/03-crop-image/crop_image.py) 
 
 ### Python Mutithreading:
 * [01. mutithreading](python-mutithread/mutithreading.py)
@@ -20,6 +20,10 @@
 * [02. count](py-mongo-db/count.py)
 * [03. datetime](py-mongo-db/datetime.py)
 * [04. find](py-dbmongo-db/find.py)
+
+### Python Mqtt:
+* [mqtt-pub](python-mqtt/mqtt-pub.py)
+* [mqtt-sub](python-mqtt/mqtt-sub.py)
 
 ### Python Regex:
 * [01. basic](py-regex/01-basic/basic.py)
@@ -53,6 +57,3 @@
 * [04. blog-framework](python-web-flask/04-blog-framework/)
 * [05. rend-templates](python-web-flask/05-render-templates/app.js)
 
-### Python Mqtt:
-* [mqtt-pub](python-mqtt/mqtt-pub.py)
-* [mqtt-sub](python-mqtt/mqtt-sub.py)
