@@ -42,5 +42,17 @@ $ crapy genspider quotes http://quotes.toscrape.com/
 ```
 then you will see `quotes.py` in your directory.
 
+Run file:
+```
+$ scrapy runspider quotes.py
+```
+If you want to save to a Json :
+```
+scrapy runspider quotes.py -o item.json
+```
+
+
+
+
 
 
