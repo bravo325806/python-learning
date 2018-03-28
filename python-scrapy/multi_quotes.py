@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
 import scrapy
-
-
 class QuotesSpider(scrapy.Spider):
     name = 'quotes'
     allowed_domains = ['quotes.toscrape.com']
     start_urls = ['http://quotes.toscrape.com/']
 
-    def parse(self, response):
+    def parse(self, response, page):
         # self.log('I visited :'+ response.url)
         for q in response.css('div.quote'):
             item = {
