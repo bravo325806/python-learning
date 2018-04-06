@@ -1,5 +1,3 @@
-
-
 class Employee:
     staff_num = 0
     raise_amount = 1.8
