@@ -36,8 +36,8 @@ print(staff1.raise_amount)
 
 # we can change the raise_amount
 staff1.raise_amount = 1.5
-print('staff1:',staff1.raise_amount)
-print('staff2:',staff2.raise_amount)
+print('staff1:',staff1.raise_amount) # 1.5
+print('staff2:',staff2.raise_amount) # 1.8
 
 # __dict__
 # print(staff1.__dict__)
