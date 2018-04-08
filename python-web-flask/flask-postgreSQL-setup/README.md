@@ -12,7 +12,7 @@ app = Flask(__name__)
 ```
 * 記得再加上：
 ```python
-if __name__ = '__main__':
+if __name__ == '__main__':
     app.run()
 ```
 這段程式碼是為了自動執行flask class內所有的function。
