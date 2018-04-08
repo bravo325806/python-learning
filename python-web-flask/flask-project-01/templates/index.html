@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+{% block body %}
+<form action="/" method="POST">
+    <h2>Welcome to my Flask app</h2>
+    <p class="lead">Sign up Now!</p>
+    Name: <input type="text" name="name"> <br/><br/>
+    Email : <input type="text" name="email"> <b>@myEmail.com</b> <br/><br/>
+    phone : <input type="text" name="phone"><br/><br>
+    Birthday : <input type="text" name="birthday"><br/><br/>
+    <input class="btn primary" value="Register now!" type="submit">
+</form>
+{% endblock %}
