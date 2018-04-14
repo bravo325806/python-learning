@@ -12,8 +12,8 @@ mqtt = Mqtt(app)
 def index():
     return render_template('index.html')
 
-@app.route('/api/v1.0/tasks/<want_to_pub>', methods=['GET'])
-def get_task(want_to_pub):
+@app.route('/api/v1.0/mqtt/pub/<want_to_pub>', methods=['GET'])
+def pub_my_msg(want_to_pub):
     if len(want_to_pub) == 0:
         abort(404)
     mqtt.publish('mytopic',want_to_pub )

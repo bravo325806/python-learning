@@ -12,9 +12,9 @@ my_json = "{ 'connect_A' : '/dev/ttyUSB0', 'connect_B' : '/dev/ttyUSB1' }"
 @app.route('/')
 def index():
     return 'hello world'
-    
+
 @app.route('/api/v1.0/connect/', methods=['GET'])
-def get_task():
+def pub_my_msg():
     mqtt.publish('mytopic', my_json )
     return 'data was published'
 
