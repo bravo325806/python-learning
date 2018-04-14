@@ -14,7 +14,7 @@ def index():
 
 # register
 @app.route('/', methods=["POST"])
-def register():
+def register_user():
     # request from form
     data = {
         "table":"users",
@@ -26,11 +26,17 @@ def register():
         "table": "users",
         "register_time":"2018-10-11"
     }
-    # become json format
-    # post_data = jsonify(data)
     insert_data = PostgreDbProcess(data)
     insert_data.insert()
     return 'insert ok!'
+
+@app.route('/delete/id/<user_id>', methods=["GET"])
+def delete_user(user_id):
+    if len(user_id) == 0:
+        return 'you need to add user id!'
+    delet_data = PostgreDbProcess(user_id)
+    delet_data.delete_user()
+    return 'delete ok' 
 
 if __name__ == '__main__':
     app.run()
