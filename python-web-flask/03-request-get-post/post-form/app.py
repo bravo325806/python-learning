@@ -44,6 +44,7 @@ def delete_user(user_id):
     return 'delete ok' 
 
 @app.route('/delete/id/<user_id>', methods=["GET"])
+
 def delete_user(user_id):
     if len(user_id) == 0:
         return 'you need to add user id!'
@@ -55,6 +56,6 @@ def delete_user(user_id):
     delet_data = PostgreDbProcess(data)
     delet_data.delete_user()
     return 'delete ok' 
-    
+
 if __name__ == '__main__':
     app.run()
