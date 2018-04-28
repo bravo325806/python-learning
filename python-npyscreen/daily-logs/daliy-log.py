@@ -23,14 +23,13 @@ class FormObj(npyscreen.ActionForm, npyscreen.FormWithMenus, npyscreen.SplitForm
         self.logTime = self.add(npyscreen.TitleText, name='Log Time:' )
         self.logTime.value = datetime.now().strftime("%Y-%m-%d")
         self.nextrely +=1
-        self.todayDone = self.add(InputBox, name="What are you doing today?", max_height=y //2 )
+        self.todayDone = self.add(InputBox, name="What are you doing today?", max_height=y //3 )
         self.problem = self.add(InputBox, name='Any Problem?')
         # menus 	
         def weekly_logs():
             npyscreen.notify_confirm('This function not completed yet')
         def  all_logs():
             npyscreen.notify_confirm('This function not completed yet')
-
         
         self.menu = self.new_menu(name ='Menu' , shortcut ='^x')
         self.menu.addItem(text='Weekly Logs', onSelect= weekly_logs, shortcut='1')
@@ -52,20 +51,24 @@ class FormObj(npyscreen.ActionForm, npyscreen.FormWithMenus, npyscreen.SplitForm
             os.mkdir('./logs')
             with open( './logs/'+ self.logTime.value+'.json', 'w') as f: 
                 json.dump(data, f)
-
-        npyscreen.notify_confirm('Form has been saved!')
-        self.saved.color('GOOD')
+        else:
+            with open( './logs/'+ self.logTime.value+'.json', 'w') as f: 
+                json.dump(data, f)
+        npyscreen.notify_confirm('Good!'+ self.fname.value+ '\nYour log has been saved!\nNow click "Cancel" to leave! ')
         self.saved.value = 'Saved!'
        
-
     def on_cancel(self):
         # cancel btn press
-        if_exit = npyscreen.notify_yes_no('Are you sure want to cancel?','Postive?', editw=1)
-        if (if_exit):
-            npyscreen.notify_confirm("Form has NOT saved!", 'BYE BYE')
+        if (self.saved.value == 'Saved!'):
+            npyscreen.notify_wait('OK! '+ self.fname.value+":\nyour log has been SAVED in your directory!\nSee you!", 'BYE BYE')
             self.parentApp.setNextForm(None)
-        else:
-            npyscreen.notify_confirm("You may continue working", 'OKAY!')
+        else:    
+            if_exit = npyscreen.notify_yes_no( 'HEY! '+ self.fname.value+ '\nAre you sure want to Cancel?','Postive?', editw=1)
+            if (if_exit):
+                npyscreen.notify_confirm('oh....'+ self.fname.value +"\nyour log has NOT saved!", 'BYE BYE')
+                self.parentApp.setNextForm(None)
+            else:
+                npyscreen.notify_confirm("You may continue working", 'Allright!')
         
 class App(npyscreen.NPSAppManaged):
     def onStart(self):
