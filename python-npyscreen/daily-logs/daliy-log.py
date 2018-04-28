@@ -1,4 +1,4 @@
-
+#!/usr/bin/env python
 
 import npyscreen
 from datetime import datetime
@@ -54,18 +54,17 @@ class FormObj(npyscreen.ActionForm, npyscreen.FormWithMenus, npyscreen.SplitForm
         else:
             with open( './logs/'+ self.logTime.value+'.json', 'w') as f: 
                 json.dump(data, f)
-        npyscreen.notify_confirm('Good!'+ self.fname.value+ '\nYour log has been saved!\nNow click "Cancel" to leave! ')
+        npyscreen.notify_confirm('Good!'+ self.fname.value+ '\n\nYour log has been saved!\nNow click "Cancel" to leave! ')
         self.saved.value = 'Saved!'
        
     def on_cancel(self):
         # cancel btn press
         if (self.saved.value == 'Saved!'):
-            npyscreen.notify_wait('OK! '+ self.fname.value+":\nyour log has been SAVED in your directory!\nSee you!", 'BYE BYE')
+            npyscreen.notify_wait('Okay! '+ self.fname.value+":\n\nyour log has been SAVED in your directory!\n\nSee You!", 'BYE BYE')
             self.parentApp.setNextForm(None)
         else:    
-            if_exit = npyscreen.notify_yes_no( 'HEY! '+ self.fname.value+ '\nAre you sure want to Cancel?','Postive?', editw=1)
-            if (if_exit):
-                npyscreen.notify_confirm('oh....'+ self.fname.value +"\nyour log has NOT saved!", 'BYE BYE')
+            postive_exit = npyscreen.notify_yes_no( 'HEY! '+ self.fname.value+ '"\nYou has NOT saved!\nAre you sure want to Cancel?','Postive?', editw=1)
+            if (postive_exit):
                 self.parentApp.setNextForm(None)
             else:
                 npyscreen.notify_confirm("You may continue working", 'Allright!')
