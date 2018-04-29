@@ -5,6 +5,7 @@ from datetime import datetime
 import json, os
         
 
+
 class ExitButton(npyscreen.ButtonPress):
     def whenPressed(self):
         self.parentApp.setNextForm(None)
@@ -18,9 +19,9 @@ class WriteLogFormObj(npyscreen.ActionForm, npyscreen.FormWithMenus, npyscreen.S
         y, x = self.useable_space()
         # Name
         #if be saved
-        self.saved = self.add( npyscreen.TitleText, name= 'Save status:', value= 'NOT SAVE', editable = False, color='STANDOUT')
+        self.saved = self.add(npyscreen.TitleText, name= 'Save status:', value= 'NOT SAVE', editable = False, color='STANDOUT')
         self.nextrely +=2
-        self.fname = self.add( npyscreen.TitleText, name= 'Your Name:', value= 'plusone', editable = False)
+        self.fname = self.add(npyscreen.TitleText, name= 'Your Name:', value= 'plusone', editable = False)
         # log time
         self.logTime = self.add(npyscreen.TitleText, name='Log Time:' ,value= datetime.now().strftime("%Y-%m-%d"))
         # self.logTime.value = datetime.now().strftime("%Y-%m-%d")
@@ -30,6 +31,7 @@ class WriteLogFormObj(npyscreen.ActionForm, npyscreen.FormWithMenus, npyscreen.S
 
         def  all_logs():
             self.parentApp.switchForm('SECOUND')
+
         self.menu = self.new_menu(name ='Menu' , shortcut ='^x')
         self.menu.addItem(text='All Logs', onSelect= all_logs, shortcut='1')
         self.menu.addItem(text='Exit Menu', shortcut='2')
@@ -54,7 +56,7 @@ class WriteLogFormObj(npyscreen.ActionForm, npyscreen.FormWithMenus, npyscreen.S
        
     def on_cancel(self):
         # cancel btn press
-        if (self.saved.value == 'Saved!'):
+        if (self.saved.value != 'NOT SAVE'):
             npyscreen.notify_wait('Okay! '+ self.fname.value+":\n\nyour log has been SAVED in your directory!\n\nSee You!", 'BYE BYE')
             self.parentApp.setNextForm(None)
         else:    
@@ -64,11 +66,28 @@ class WriteLogFormObj(npyscreen.ActionForm, npyscreen.FormWithMenus, npyscreen.S
             else:
                 npyscreen.notify_confirm("You may continue working", 'Allright!')
 
+class LogsFound():
+    def __init__(self):
+        logsList = self.logsList
+        logsNum = self.logsNum
+    logsList = []
+    for root, dirs, files in os.walk('./logs'):
+        for file in files: 
+            logsList.append(file)
+    logsNum = len(logsList)
+
 # no.2 page - show logs page
 class ShowLogsForm(npyscreen.ActionForm, npyscreen.FormWithMenus):
+    
+
     def create(self):   
         y, x = self.useable_space()
         self.add( npyscreen.TitleText, name= 'NOW:', value= datetime.now().strftime("%Y-%m-%d %H:%M"), editable = False)    
+        self.nextrely +=2
+        self.menu = self.new_menu(name ='Menu' , shortcut ='^x')
+        for index in range(LogsFound.logsNum):
+            self.menu.addItem(text=LogsFound.logsList[index][0:10] )
+
 
     def on_ok(self):
        pass
@@ -77,12 +96,14 @@ class ShowLogsForm(npyscreen.ActionForm, npyscreen.FormWithMenus):
         # cancel btn press
         self.parentApp.setNextForm('MAIN')
 
-
-
 class App(npyscreen.NPSAppManaged):
     def onStart(self):
-        self.addForm('MAIN', WriteLogFormObj, draw_line_at = 4, name ='write_log') 
-        self.addForm('SECOUND', ShowLogsForm, name ='show_logs') 
+        self.addForm('MAIN', WriteLogFormObj, draw_line_at = 4, name ='WRITE LOG') 
+        self.addForm('SECOUND', ShowLogsForm, name ='SHOW LOGS') 
+
+ 
+
+
 
 if __name__ == '__main__':
 	app = App()
