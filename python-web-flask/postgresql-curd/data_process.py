@@ -1,9 +1,9 @@
 import psycopg2
 from flask import jsonify
+from datetime import datetime
 
 
 class PostgreDbProcess:
-    
     # connect to email DB
     db_connection = psycopg2.connect(dbname= 'email', user= 'plusone')
     mark = db_connection.cursor()
@@ -16,11 +16,11 @@ class PostgreDbProcess:
 
     def insert(self):
         # val 
-        PostgreDbProcess.id = str(11)
+        PostgreDbProcess.id = str(1)
         PostgreDbProcess.name = str(self.post_data['name'])
         PostgreDbProcess.email = str(self.post_data['email'] + '@plusmail.example.com')
         PostgreDbProcess.birthday = str(self.post_data['birthday'])
-        PostgreDbProcess.register_time =  str(self.post_data['register_time'])
+        PostgreDbProcess.register_time =  datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S") 
 
         # sql 
         self.values = self.id+",'"+self.name+"','"+self.email+"','" +self.birthday+"','" + self.register_time+"'"
@@ -38,4 +38,12 @@ class PostgreDbProcess:
         # commit to db
         PostgreDbProcess.mark.execute(self.statement)
         PostgreDbProcess.db_connection.commit()
+    
+    
+    def show_all_users():
+        PostgreDbProcess.statement = 'SELECT  * FROM users'
+        PostgreDbProcess.mark.execute(PostgreDbProcess.statement)
         
+        # get all users list
+        rows = PostgreDbProcess.mark.fetchall()
+        return rows
