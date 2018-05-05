@@ -12,7 +12,8 @@ class ExitButton(npyscreen.ButtonPress):
         
 class InputBox(npyscreen.BoxTitle):
     _contained_widget = npyscreen.MultiLineEdit
-
+class TextBox(npyscreen.BoxTitle):
+    MAIN_WIDGET_CLASS = npyscreen.Pager
 # no.1 page - write logs page
 class WriteLogFormObj(npyscreen.ActionForm, npyscreen.FormWithMenus, npyscreen.SplitForm):
     def create(self):   
@@ -21,7 +22,7 @@ class WriteLogFormObj(npyscreen.ActionForm, npyscreen.FormWithMenus, npyscreen.S
         #if be saved
         self.saved = self.add(npyscreen.TitleText, name= 'Save status:', value= 'NOT SAVE', editable = False, color='STANDOUT')
         self.nextrely +=2
-        self.fname = self.add(npyscreen.TitleText, name= 'Your Name:', value= 'plusone', editable = False)
+        self.fname = self.add(npyscreen.TitleText, name= 'Your Name:', value= 'story', editable = False)
         # log time
         self.logTime = self.add(npyscreen.TitleText, name='Log Time:' ,value= datetime.now().strftime("%Y-%m-%d"))
         # self.logTime.value = datetime.now().strftime("%Y-%m-%d")
@@ -46,11 +47,8 @@ class WriteLogFormObj(npyscreen.ActionForm, npyscreen.FormWithMenus, npyscreen.S
         }
         if not os.path.exists('./logs/'):
             os.mkdir('./logs')
-            with open( './logs/'+ self.logTime.value+'.json', 'w') as f: 
-                json.dump(data, f)
-        else:
-            with open( './logs/'+ self.logTime.value+'.json', 'w') as f: 
-                json.dump(data, f)
+        with open( './logs/'+ self.logTime.value+'.json', 'w') as f: 
+            json.dump(data, f)
         npyscreen.notify_confirm('Good!'+ self.fname.value+ '\n\nYour log has been saved!\nNow click "Cancel" to leave! ')
         self.saved.value = 'Saved! at ' + datetime.now().strftime("%Y-%m-%d.%H:%M")
        
@@ -78,24 +76,28 @@ class LogsFound():
 
 # no.2 page - show logs page
 class ShowLogsForm(npyscreen.ActionForm, npyscreen.FormWithMenus):
-    
-
     def create(self):   
         y, x = self.useable_space()
         self.add( npyscreen.TitleText, name= 'NOW:', value= datetime.now().strftime("%Y-%m-%d %H:%M"), editable = False)    
         self.nextrely +=2
         self.menu = self.new_menu(name ='Menu' , shortcut ='^x')
+        self.todayDone = self.add(InputBox, name="What are you doing today?", max_height=y//3)
+        self.problem = self.add(InputBox, name='Any Problem?') 
         for index in range(LogsFound.logsNum):
-            self.menu.addItem(text=LogsFound.logsList[index][0:10] )
-
-
+            self.menu.addItem(text=LogsFound.logsList[index][0:10],onSelect=self.open_file, arguments=[LogsFound.logsList[index]])
     def on_ok(self):
        pass
        
     def on_cancel(self):
         # cancel btn press
         self.parentApp.setNextForm('MAIN')
-
+    
+    def open_file(self,argument):
+        with open('./logs/'+argument,'r') as f:
+            j=json.loads(f.read())
+            self.todayDone.value=j['todayDone']
+            self.problem.value=j['todayProblem']
+        
 class App(npyscreen.NPSAppManaged):
     def onStart(self):
         self.addForm('MAIN', WriteLogFormObj, draw_line_at = 4, name ='WRITE LOG') 
