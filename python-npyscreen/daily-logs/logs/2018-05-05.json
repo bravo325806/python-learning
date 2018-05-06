@@ -1,0 +1,1 @@
+{"userName": "plusone", "todayDone": "1.spark streaming - from mqtt insert data to Elasticsearch ok!", "saveTime": "2018-05-05", "todayProblem": "note : insert data has to convert to dictionary\nhttps://stackoverflow.com/questions/988228/convert-a-string-representation-of-a-dictionary-to-a-dictionary"}

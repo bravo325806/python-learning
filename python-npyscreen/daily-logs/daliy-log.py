@@ -39,19 +39,28 @@ class WriteLogFormObj(npyscreen.ActionForm, npyscreen.FormWithMenus, npyscreen.S
     
     def on_ok(self):
         # ok btn press
-        data = {
-            'userName':self.fname.value,
-            'todayDone':self.todayDone.value,
-            'saveTime':self.logTime.value,
-            'todayProblem':self.problem.value
-        }
-        if not os.path.exists('./logs/'):
-            os.mkdir('./logs')
-        with open( './logs/'+ self.logTime.value+'.json', 'w') as f: 
-            json.dump(data, f)
-        npyscreen.notify_confirm('Good!'+ self.fname.value+ '\n\nYour log has been saved!\nNow click "Cancel" to leave! ')
-        self.saved.value = 'Saved! at ' + datetime.now().strftime("%Y-%m-%d.%H:%M")
-       
+        def want_to_save_log():
+            data = {
+                'userName':self.fname.value,
+                    'todayDone':self.todayDone.value,
+                    'saveTime':self.logTime.value,
+                    'todayProblem':self.problem.value
+                }
+            if not os.path.exists('./logs/'):
+                os.mkdir('./logs')
+            with open( './logs/'+ self.logTime.value+'.json', 'w') as f:
+                json.dump(data, f)
+                npyscreen.notify_confirm('Good!'+ self.fname.value+ '\n\nYour log has been saved!\nNow click "Cancel" to leave! ')
+                self.saved.value = 'Saved! at ' + datetime.now().strftime("%Y-%m-%d.%H:%M")
+
+        savedNewFileName = datetime.now().strftime("%Y-%m-%d") + ".json"
+        if os.path.exists('./logs/'+ savedNewFileName):
+            postive_rewrite = npyscreen.notify_yes_no( 'You had saved a log today, Do you want to rewrite?','Rewrite?', editw=1)
+            if postive_rewrite: want_to_save_log()
+            else:
+                npyscreen.notify_confirm('Good!'+ self.fname.value+ '\n\nYour log has been saved!\nNow click "Cancel" to leave! ')
+                self.parentApp.setNextForm(None)
+        else:want_to_save_log()
     def on_cancel(self):
         # cancel btn press
         if (self.saved.value != 'NOT SAVE'):
@@ -86,7 +95,7 @@ class ShowLogsForm(npyscreen.ActionForm, npyscreen.FormWithMenus):
         for index in range(LogsFound.logsNum):
             self.menu.addItem(text=LogsFound.logsList[index][0:10],onSelect=self.open_file, arguments=[LogsFound.logsList[index]])
     def on_ok(self):
-       pass
+       self.parentApp.setNextForm('MAIN')
        
     def on_cancel(self):
         # cancel btn press
@@ -97,16 +106,14 @@ class ShowLogsForm(npyscreen.ActionForm, npyscreen.FormWithMenus):
             j=json.loads(f.read())
             self.todayDone.value=j['todayDone']
             self.problem.value=j['todayProblem']
-        
+            self.todayDone.editable = False
+            self.problem.editable = False 
 class App(npyscreen.NPSAppManaged):
     def onStart(self):
         self.addForm('MAIN', WriteLogFormObj, draw_line_at = 4, name ='WRITE LOG') 
         self.addForm('SECOUND', ShowLogsForm, name ='SHOW LOGS') 
 
  
-
-
-
 if __name__ == '__main__':
 	app = App()
 	app.run()
