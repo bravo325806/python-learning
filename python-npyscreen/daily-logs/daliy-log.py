@@ -20,7 +20,7 @@ class WriteLogFormObj(npyscreen.ActionForm, npyscreen.FormWithMenus, npyscreen.S
         #if be saved
         self.saved = self.add(npyscreen.TitleText, name= 'Save status:', value= 'NOT SAVE', editable = False, color='STANDOUT')
         self.nextrely +=2
-        self.fname = self.add(npyscreen.TitleText, name= 'Your Name:', value= 'plusone', editable = False)
+        self.fname = self.add(npyscreen.TitleText, name= 'Your Name:', value=os.getlogin(), editable = False)
         # log time
         self.logTime = self.add(npyscreen.TitleText, name='Log Time:' ,value= datetime.now().strftime("%Y-%m-%d"))
         # self.logTime.value = datetime.now().strftime("%Y-%m-%d")
@@ -111,5 +111,5 @@ class App(npyscreen.NPSAppManaged):
 
  
 if __name__ == '__main__':
-	app = App()
-	app.run()
+    app = App()
+    app.run()
